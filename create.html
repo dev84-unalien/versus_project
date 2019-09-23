@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="global.css">
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="create_get.js"></script>
+    <title>Création d'un personnage pour le fight</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Formulaire de création de personnage pour le fight</legend>
+        <br>URL:<br>
+        <input id = 'photo' type = 'url' name = 'laphoto' maxlength = '255' placeholder = 'Url photo du fighter' size = '200' required><br>
+        <br>NOM:<br>
+        <input id = 'name' type = 'text' name = 'lenom' maxlength = '50' placeholder = 'Nom du fighter' size = '50' required><br>
+        <br>PV:<br>
+        <input id = 'pv' type = 'number' name = 'lepv' min = '1' max = '100' maxlength = '3' placeholder = 'Points de vie (1-100)' required><br>
+        <br>PA:<br>
+        <input id = 'pa' type = 'number' name = 'lepa' min = '1' max = '100' maxlength = '3' placeholder = "Points d'attaque (1-100)" required><br><br>
+        <button id = 'validate' type = 'button'>Valider</button>
+    </fieldset>
+</body>
+</html>
