@@ -1,4 +1,7 @@
 <?php
+
+header("Access-Control-Allow-Origin: *"); // Contournement de l'erreur CORS
+
 header("Content-type: text/html; charset=UTF-8");
 
 // Récupération des données de la requête AJAX du formulaire de 'create.html'
@@ -48,7 +51,7 @@ $nom = filter_var($nom, FILTER_SANITIZE_SPECIAL_CHARS);
 
 $connex = new mysqli("mysql-nectardedemo.alwaysdata.net", "170341_dev2019", "dev2019form", "nectardedemo_versus");
 if ($connex->connect_error) {
-    die("La connexion à la bdd a échoué : " . $connex->connect_error);
+    die("La connexion à la bdd 'nectardedemo_versus' a échoué : " . $connex->connect_error);
 }
 
 // Forçage du charset UTF-8
