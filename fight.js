@@ -1,11 +1,11 @@
 let nom_fighter_1 = "Jean";
-let pv_fighter_1 = 100;
-let pa_fighter_1 = 15;
+let pv_fighter_1 = 96;
+let pa_fighter_1 = 6;
 let url_fighter_1 = "";
 
 let nom_fighter_2 = "Macron";
 let pv_fighter_2 = 100;
-let pa_fighter_2 = 10;
+let pa_fighter_2 = 4;
 let url_fighter_2 = "";
 
 function commence() {
@@ -29,16 +29,17 @@ function loupeMonAttaque() {
 function fight(isPerso1) {
   let idInterval = setInterval(function() {
     if (isPerso1 == true) {
-      if (!loupeMonAttaque() == 1) {
+      if (loupeMonAttaque() != 1) {
         pv_fighter_2 = pv_fighter_2 - pa_fighter_1 * powerAttack();
-        isPerso1 = false;
-    }
-      
-    } else {
-      if (!loupeMonAttaque() == 1) {
-        pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
-        isPerso1 = true;
+        console.log(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
       }
+      isPerso1 = false;
+    } else {
+      if (loupeMonAttaque() != 1) {
+        pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
+        console.log(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
+      }
+      isPerso1 = true;
     }
 
     if (pv_fighter_1 <= 0) {
@@ -50,4 +51,6 @@ function fight(isPerso1) {
       clearInterval(idInterval);
     }
   }, 2000);
-};
+}
+
+commence();
