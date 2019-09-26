@@ -77,8 +77,8 @@ input {
     align-items: center;
     position: absolute;
     border: 2px red solid;
-    width: 90vw;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
     background-color: white;
 }
 

@@ -215,26 +215,36 @@ function fight(isPerso1) {
     if (isPerso1 == true) {
       if (loupeMonAttaque() != 1) {
         pv_fighter_2 = pv_fighter_2 - pa_fighter_1 * powerAttack();
-        console.log(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
+        if (pv_fighter_2 < 0) {
+            pv_fighter_2 = 0;
+        }
         writeintextarea(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
+      }
+      else
+      {
+          writeintextarea(nom_fighter_2 + " a esquivé l'attaque! " + pv_fighter_2);
       }
       isPerso1 = false;
     } else {
       if (loupeMonAttaque() != 1) {
         pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
-        console.log(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
+        if (pv_fighter_1 < 0) {
+            pv_fighter_1 = 0;
+        }
         writeintextarea(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
+      }
+      else
+      {
+          writeintextarea(nom_fighter_1 + " a esquivé l'attaque! " + pv_fighter_1);
       }
       isPerso1 = true;
     }
 
     if (pv_fighter_1 <= 0) {
-      console.log(nom_fighter_1 + " est mort !");
       writeintextarea(nom_fighter_1 + " est mort !");
       clearInterval(idInterval);
     }
     if (pv_fighter_2 <= 0) {
-      console.log(nom_fighter_2 + " est mort !");
       writeintextarea(nom_fighter_2 + " est mort !");
       clearInterval(idInterval);
     }
