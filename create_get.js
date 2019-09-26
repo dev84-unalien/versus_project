@@ -132,15 +132,6 @@ récupérés dans le tableau 'fighters', ceci dans la zone 'x vs y' prévue à c
 
 function showfightersnames() {
 
-    // $("#one option[value='0']").prop('selected', true);
-    // $("#two option[value='1']").prop('selected', true);
-
-    // $('#one').val(0).change();
-    // $('#two').val(1).change();
-
-    // $('#one').prop('selectedIndex', 0);
-    // $('#two').prop('selectedIndex', 1);
-
     let indexFighterOne = $('select#one').val();
     let indexFighterTwo = $('select#two').val();
 
