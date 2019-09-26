@@ -8,27 +8,26 @@
         <link rel="stylesheet" type="text/css" href="global.css">
         <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="create_get.js"></script>
-        <script type="text/javascript" src="fight.js"></script>
         <title>Création d'un personnage pour le fight et choix des fighters</title>
     </head>
     <body>
 
         <div id= 'main'>
             <div class="theFight">
-                <div class="life">
-                    <div id="lifef1">life1</div>
-                    <div id="lifef2">life2</div>
+                <div class="vies">
+                    <div id="lifef1"><span id="pv_f1"></span></div>
+                    <div id="lifef2"><span id="pv_f2"></span></div>
                 </div>
                 <div class="noms">
-                    <div class="nom">fighter1</div>
-                    <div class="nom">VS</div>
-                    <div class="nom">fighter2</div>
+                    <div class="nom"><span id="nom_f1"></span></div>
+                    <div class="nom"><span id="vs">VS</span></div>
+                    <div class="nom"><span id="nom_f2"></span></div>
                 </div>
-                <div id="photos">
-                    <div class="photo">fdgfdg</div>
-                    <div class="photo">fgfdgf</div>
+                <div class="photos">
+                    <div class="photo_f1">fdgfdg</div>
+                    <div class="photo_f2">fgfdgf</div>
                 </div>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <textarea name="battletext" id="history" cols="50" rows="10" readonly></textarea>
             </div>
             <div id= 'create'>
                 <fieldset id= 'makefighter'>
@@ -60,7 +59,7 @@
                     <br>ID fighter n° 2:<br>
                     <select id= 'two' name= 'fightertwo' maxlength= '3'>
                     </select><br><br>
-                    <button id= 'fight' onclick()="fight" type= 'button'>Let's
+                    <button id= 'fight' type= 'button'>Let's
                         fight!</button>
                 </fieldset>
                 <div id= 'versus'>

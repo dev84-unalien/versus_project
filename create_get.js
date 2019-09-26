@@ -15,6 +15,16 @@ $(document).ready(function() {
     let fighters = null;
     let fighter = null;
 
+    let nom_fighter_1 = null;
+    let pv_fighter_1 = null;
+    let pa_fighter_1 = null;
+    let url_fighter_1 = null;
+
+    let nom_fighter_2 = null;
+    let pv_fighter_2 = null;
+    let pa_fighter_2 = null;
+    let url_fighter_2 = null;
+
     monsieurpropre(); // Appel de la fonction 'monsieurpropre', pour récupérer les 'fighters' de la bdd
 
     $(document).on('change', 'select', function() {
@@ -24,6 +34,11 @@ $(document).ready(function() {
     $('#validate').click(function() {
         getformentries(); // Un clic sur le bouton 'Valider' appelle la fonction 'getformentries'
         monsieurpropre(); // Le même clic appelle à la suite la fonction 'monsieurpropre'
+    });
+
+    $('#fight').click(function() {
+        monsieurpropre();
+        commence();
     });
 
 /* La fonction 'getformentries' récupère les valeurs entrées dans les champs
@@ -138,10 +153,82 @@ function showfightersnames() {
     fighter = fighters[indexFighterOne];
     getNom = fighter['nom'];
     $('#playerone').text(getNom);
+    nom_fighter_1 = getNom;
+    pv_fighter_1 = fighter['pv'];
+    pa_fighter_1 = fighter['pa'];
+    url_fighter_1 = fighter['url'];
 
     fighter = fighters[indexFighterTwo];
     getNom = fighter['nom'];
     $('#playertwo').text(getNom);
+    nom_fighter_2 = getNom;
+    pv_fighter_2 = fighter['pv'];
+    pa_fighter_2 = fighter['pa'];
+    url_fighter_2 = fighter['url'];
+
+    $('#pv_f1').text('PV -> ' + pv_fighter_1);
+    $('#pv_f2').text('PV -> ' + pv_fighter_2);
+
+    $('#nom_f1').text(nom_fighter_1);
+    $('#nom_f2').text(nom_fighter_2);
+
+    $('.photo_f1').css('background-image', 'url(' + url_fighter_1 + ')');
+    $('.photo_f2').css('background-image', 'url(' + url_fighter_2 + ')');
+}
+
+// Les fonctions qui suivent permettent de lancer la session de 'fight'
+
+function commence() {
+  let random = String(Math.round(Math.random()));
+  if (random == 0) {
+    // Perso qui attaque
+    fight(true);
+  } else {
+    // Perso 2 qui attaque
+    fight(false);
+  }
+}
+
+function powerAttack() {
+  let random = Math.floor(Math.random() * 6) + 1;
+  return random;
+}
+
+function loupeMonAttaque() {
+  let rdn_loupe = Math.floor(Math.random() * 3) + 1;
+  return rdn_loupe;
+}
+
+function fight(isPerso1) {
+  let idInterval = setInterval(function() {
+    if (isPerso1 == true) {
+      if (loupeMonAttaque() != 1) {
+        pv_fighter_2 = pv_fighter_2 - pa_fighter_1 * powerAttack();
+        console.log(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
+        $('#history').append(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
+      }
+      isPerso1 = false;
+    } else {
+      if (loupeMonAttaque() != 1) {
+        pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
+        console.log(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
+      }
+      isPerso1 = true;
+    }
+
+    if (pv_fighter_1 <= 0) {
+      console.log(nom_fighter_1 + " est mort !");
+      clearInterval(idInterval);
+    }
+    if (pv_fighter_2 <= 0) {
+      console.log(nom_fighter_2 + " est mort !");
+      clearInterval(idInterval);
+    }
+  }, 2000);
+}
+
+function populatescreen() {
+
 }
 
 });

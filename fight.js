@@ -8,10 +8,6 @@ let pv_fighter_2 = 100;
 let pa_fighter_2 = 4;
 let url_fighter_2 = "";
 
-function letFight(onclick) {
-
-}
-
 function commence() {
   let random = String(Math.round(Math.random()));
   if (random == 0) {
@@ -22,14 +18,17 @@ function commence() {
     fight(false);
   }
 }
+
 function powerAttack() {
   let random = Math.floor(Math.random() * 6) + 1;
   return random;
 }
+
 function loupeMonAttaque() {
   let rdn_loupe = Math.floor(Math.random() * 3) + 1;
   return rdn_loupe;
 }
+
 function fight(isPerso1) {
   let idInterval = setInterval(function() {
     if (isPerso1 == true) {
@@ -56,5 +55,3 @@ function fight(isPerso1) {
     }
   }, 2000);
 }
-
-commence();
