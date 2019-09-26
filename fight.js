@@ -8,6 +8,11 @@ let pv_fighter_2 = 100;
 let pa_fighter_2 = 4;
 let url_fighter_2 = "";
 
+<<<<<<< HEAD
+=======
+function letFight(onclick) {}
+
+>>>>>>> 227a0c6eb48b46db70e43ac941ecf51f99e7c66e
 function commence() {
   let random = String(Math.round(Math.random()));
   if (random == 0) {
