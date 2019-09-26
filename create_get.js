@@ -16,14 +16,14 @@ $(document).ready(function() {
     let fighter = null;
 
     monsieurpropre(); // Appel de la fonction 'monsieurpropre', pour récupérer les 'fighters' de la bdd
-    showfightersnames(); // Appel de la fonction 'showfightersnames', pour mettre à jour la zone 'x vs y'
 
-    $('#fight').click(function() {
-        $("#one option[value='1']").prop('selected', true);
+    $(document).on('change', 'select', function() {
+        showfightersnames(); // Un changement dans les select des fighters appelle 'showfightersnames'
     });
 
     $('#validate').click(function() {
         getformentries(); // Un clic sur le bouton 'Valider' appelle la fonction 'getformentries'
+        monsieurpropre(); // Le même clic appelle à la suite la fonction 'monsieurpropre'
     });
 
 /* La fonction 'getformentries' récupère les valeurs entrées dans les champs
@@ -55,7 +55,9 @@ function getformentries() {
     if (ausweis == 4) {
         cifammoniacal(url, nom, pv, pa);
     }
-        else {alert("Formulaire invalide, wtf, call the police!");}
+    else {
+        alert("Formulaire invalide, wtf, call the police!");
+    }
 }
 
 /* La fonction 'cifammoniacal' effectue une requête AJAX du type 'POST',
@@ -93,6 +95,7 @@ function monsieurpropre() {
             fighters = JSON.parse(JSON.stringify(result));
 
             let options = '';
+            let selectFlag = '';
 
             $('#one').empty();
             $('#two').empty();
@@ -104,10 +107,18 @@ function monsieurpropre() {
                 getPv = fighter['pv'];
                 getPa = fighter['pa'];
                 getUrl = fighter['url'];
-                options += `<option value = "` + i + `">` + getId + `</option>`;
+                if (i == 0) {
+                    selectFlag = ' selected'
+                }
+                else {
+                    selectFlag = '';
+                }
+                options += `<option value = "` + i + `"` + selectFlag + `>` + getId + `</option>`;
             }
                 $('#one').append(options);
                 $('#two').append(options);
+
+                showfightersnames();
         },
         error: function error(fail) {
             alert(fail);
@@ -132,8 +143,6 @@ function showfightersnames() {
 
     let indexFighterOne = $('select#one').val();
     let indexFighterTwo = $('select#two').val();
-
-    alert(indexFighterOne + ' / ' + indexFighterTwo);
 
     fighter = fighters[indexFighterOne];
     getNom = fighter['nom'];
