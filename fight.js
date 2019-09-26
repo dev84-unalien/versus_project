@@ -8,6 +8,10 @@ let pv_fighter_2 = 100;
 let pa_fighter_2 = 4;
 let url_fighter_2 = "";
 
+function letFight(onclick) {
+
+}
+
 function commence() {
   let random = String(Math.round(Math.random()));
   if (random == 0) {
