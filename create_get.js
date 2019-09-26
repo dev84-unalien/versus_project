@@ -37,7 +37,7 @@ $(document).ready(function() {
     });
 
     $('#fight').click(function() {
-        monsieurpropre();
+        $('.theFight').css('display', 'flex');
         commence();
     });
 
@@ -174,6 +174,17 @@ function showfightersnames() {
 
     $('.photo_f1').css('background-image', 'url(' + url_fighter_1 + ')');
     $('.photo_f2').css('background-image', 'url(' + url_fighter_2 + ')');
+
+    $('#history').val('');
+}
+
+// La fonction 'writeintextarea' permet de mettre à jour l'historique du 'fight'
+
+function writeintextarea(sentence) {
+    let $edit = $("#history");
+    let curValue = $edit.val();
+    let newValue = curValue + sentence + "\n";
+    $edit.val(newValue);
 }
 
 // Les fonctions qui suivent permettent de lancer la session de 'fight'
@@ -205,30 +216,29 @@ function fight(isPerso1) {
       if (loupeMonAttaque() != 1) {
         pv_fighter_2 = pv_fighter_2 - pa_fighter_1 * powerAttack();
         console.log(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
-        $('#history').append(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
+        writeintextarea(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
       }
       isPerso1 = false;
     } else {
       if (loupeMonAttaque() != 1) {
         pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
         console.log(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
+        writeintextarea(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
       }
       isPerso1 = true;
     }
 
     if (pv_fighter_1 <= 0) {
       console.log(nom_fighter_1 + " est mort !");
+      writeintextarea(nom_fighter_1 + " est mort !");
       clearInterval(idInterval);
     }
     if (pv_fighter_2 <= 0) {
       console.log(nom_fighter_2 + " est mort !");
+      writeintextarea(nom_fighter_2 + " est mort !");
       clearInterval(idInterval);
     }
   }, 2000);
-}
-
-function populatescreen() {
-
 }
 
 });
