@@ -36,8 +36,11 @@ $(document).ready(function() {
         monsieurpropre(); // Le même clic appelle à la suite la fonction 'monsieurpropre'
     });
 
+/* Un clic sur le bouton 'Let's fight!' modifie la propriété 'display' de la div masquée ayant
+pour nom de classe 'thefightarea', afin de la rendre visible, et lance la fonction 'commence' */
+
     $('#fight').click(function() {
-        $('.theFight').css('display', 'flex');
+        $('.thefightarea').css('display', 'flex');
         commence();
     });
 
@@ -69,6 +72,7 @@ function getformentries() {
 
     if (ausweis == 4) {
         cifammoniacal(url, nom, pv, pa);
+        monsieurpropre();
     }
     else {
         alert("Formulaire invalide, wtf, call the police!");
@@ -157,6 +161,7 @@ function showfightersnames() {
     pv_fighter_1 = fighter['pv'];
     pa_fighter_1 = fighter['pa'];
     url_fighter_1 = fighter['url'];
+    $('#thumb_f1').css('background-image', 'url(' + url_fighter_1 + ')');
 
     fighter = fighters[indexFighterTwo];
     getNom = fighter['nom'];
@@ -165,9 +170,10 @@ function showfightersnames() {
     pv_fighter_2 = fighter['pv'];
     pa_fighter_2 = fighter['pa'];
     url_fighter_2 = fighter['url'];
+    $('#thumb_f2').css('background-image', 'url(' + url_fighter_2 + ')');
 
-    $('#pv_f1').text('PV -> ' + pv_fighter_1);
-    $('#pv_f2').text('PV -> ' + pv_fighter_2);
+    $('#pv_f1').text('à ma gauche : PV -> ' + pv_fighter_1 + ' / PA -> ' + pa_fighter_1);
+    $('#pv_f2').text('à ma droite : PV -> ' + pv_fighter_2 + ' / PA -> ' + pa_fighter_2);
 
     $('#nom_f1').text(nom_fighter_1);
     $('#nom_f2').text(nom_fighter_2);
@@ -192,7 +198,7 @@ function writeintextarea(sentence) {
 function commence() {
   let random = String(Math.round(Math.random()));
   if (random == 0) {
-    // Perso qui attaque
+    // Perso 1 qui attaque
     fight(true);
   } else {
     // Perso 2 qui attaque
@@ -201,8 +207,12 @@ function commence() {
 }
 
 function powerAttack() {
-  let random = Math.floor(Math.random() * 6) + 1;
-  return random;
+    $('.photo_f1').removeClass('wobble');
+    $('.photo_f1').removeClass('flipiny');
+    $('.photo_f2').removeClass('wobble');
+    $('.photo_f2').removeClass('flipiny');
+    let random = Math.floor(Math.random() * 6) + 1;
+    return random;
 }
 
 function loupeMonAttaque() {
@@ -213,42 +223,54 @@ function loupeMonAttaque() {
 function fight(isPerso1) {
   let idInterval = setInterval(function() {
     if (isPerso1 == true) {
-      if (loupeMonAttaque() != 1) {
-        pv_fighter_2 = pv_fighter_2 - pa_fighter_1 * powerAttack();
-        if (pv_fighter_2 < 0) {
-            pv_fighter_2 = 0;
+        if (loupeMonAttaque() != 1) {
+            pv_fighter_2 = pv_fighter_2 - pa_fighter_1 * powerAttack();
+            if (pv_fighter_2 < 0) {
+                pv_fighter_2 = 0;
+            }
+            $('.photo_f2').addClass('wobble');
+            writeintextarea(nom_fighter_1 + " Attaque ! Touché ! " + nom_fighter_2 + " a encore " + 
+            pv_fighter_2 + " points de vie...");
         }
-        writeintextarea(nom_fighter_1 + " Attaque ! " + pv_fighter_2);
-      }
-      else
-      {
-          writeintextarea(nom_fighter_2 + " a esquivé l'attaque! " + pv_fighter_2);
-      }
-      isPerso1 = false;
-    } else {
-      if (loupeMonAttaque() != 1) {
-        pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
-        if (pv_fighter_1 < 0) {
-            pv_fighter_1 = 0;
+        else
+        {
+            $('.photo_f2').addClass('flipiny');
+            writeintextarea(nom_fighter_1 + " Attaque ! " + nom_fighter_2 + 
+            " a esquivé l'attaque ! Il lui reste encore " + pv_fighter_2 + " points de vie...");
         }
-        writeintextarea(nom_fighter_2 + " Attaque ! " + pv_fighter_1);
-      }
-      else
-      {
-          writeintextarea(nom_fighter_1 + " a esquivé l'attaque! " + pv_fighter_1);
-      }
-      isPerso1 = true;
+        isPerso1 = false;
+    }
+    else
+    {
+        if (loupeMonAttaque() != 1) {
+            pv_fighter_1 = pv_fighter_1 - pa_fighter_2 * powerAttack();
+            if (pv_fighter_1 < 0) {
+                pv_fighter_1 = 0;
+            }
+            $('.photo_f1').addClass('wobble');
+            writeintextarea(nom_fighter_2 + " Attaque ! Touché ! " + nom_fighter_1 + " a encore " + 
+            pv_fighter_1 + " points de vie...");
+        }
+        else
+        {
+            $('.photo_f1').addClass('flipiny');
+            writeintextarea(nom_fighter_2 + " Attaque ! " + nom_fighter_1 + 
+            " a esquivé l'attaque ! Il lui reste encore " + pv_fighter_1 + " points de vie...");
+        }
+        isPerso1 = true;
     }
 
     if (pv_fighter_1 <= 0) {
-      writeintextarea(nom_fighter_1 + " est mort !");
+      writeintextarea(nom_fighter_1 + " est mort(e) ! Snif !");
+      $('.photo_f1').addClass('fadeoutup');
       clearInterval(idInterval);
     }
     if (pv_fighter_2 <= 0) {
-      writeintextarea(nom_fighter_2 + " est mort !");
+      writeintextarea(nom_fighter_2 + " est mort(e) ! Bouh !");
+      $('.photo_f2').addClass('fadeoutup');
       clearInterval(idInterval);
     }
-  }, 2000);
+  }, 2500);
 }
 
 });
